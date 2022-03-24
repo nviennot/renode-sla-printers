@@ -1,0 +1,21 @@
+:name: Saturn
+:description: Saturn
+
+using sysbus
+$name?="Machine"
+mach create $name
+machine LoadPlatformDescription @saturn.repl
+
+cpu PerformanceInMips 125
+
+sysbus.cpu VectorTableOffset 0x08020000
+sysbus LoadBinary @saturn-v4.4.3-pj-v5.bin 0x08020000
+
+showAnalyzer sysbus.uart1
+showAnalyzer sysbus.uart2
+showAnalyzer sysbus.uart3
+showAnalyzer sysbus.uart4
+
+machine StartGdbServer 3333
+
+start
